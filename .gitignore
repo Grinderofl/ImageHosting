@@ -17,6 +17,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+[Aa]pp_[Dd]ata/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
