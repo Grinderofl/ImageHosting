@@ -10,7 +10,7 @@ namespace ImageHosting.Core
 {
     public class EmailRetriever
     {
-        private EmailParser _parser;
+        private readonly EmailParser _parser;
         public EmailRetriever(EmailParser parser)
         {
             _parser = parser;
@@ -22,7 +22,7 @@ namespace ImageHosting.Core
             using (var client = new Pop3Client())
             {
                 var appSettings = ConfigurationManager.AppSettings;
-                client.Connect(appSettings["host"], 995, true);
+                client.Connect(appSettings["host"], 110, false);
                 client.Authenticate(appSettings["user"], appSettings["pass"], AuthenticationMethod.UsernameAndPassword);
                 for (var i = client.GetMessageCount(); i > 0; i--)
                 {

@@ -21,7 +21,7 @@ namespace ImageHosting
             var timer = new Timer(1000*60*5);
             timer.Elapsed += (sender, args) =>
             {
-                var request = WebRequest.Create("/Refresh");
+                var request = WebRequest.Create("/Home/Refresh");
                 request.GetResponse();
             };
             timer.Start();

@@ -129,7 +129,7 @@
     <Compile Include="Core\EmailParser.cs" />
     <Compile Include="Core\EmailRetriever.cs" />
     <Compile Include="Core\FileDownloader.cs" />
-    <Compile Include="Core\IdToFileConverter.cs" />
+    <Compile Include="Core\IdConverter.cs" />
     <Compile Include="Core\Library\Extensions.cs" />
     <Compile Include="Core\Modules\RegistrationModule.cs" />
     <Compile Include="Global.asax.cs">

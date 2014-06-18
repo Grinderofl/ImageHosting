@@ -11,9 +11,9 @@ namespace ImageHosting.Core
     public class FileDownloader
     {
         private readonly WebClient _client;
-        private readonly IdToFileConverter _converter;
+        private readonly IdConverter _converter;
 
-        public FileDownloader(IdToFileConverter converter)
+        public FileDownloader(IdConverter converter)
         {
             _converter = converter;
             _client = new WebClient();
@@ -21,9 +21,14 @@ namespace ImageHosting.Core
 
         public void DownloadFile(StaticObject obj)
         {
-            _client.DownloadFileAsync(new Uri(obj.Link),
-                HttpContext.Current.Server.MapPath("~/App_Data/" + _converter.Convert(obj.Id) +
-                                                   Path.GetExtension(obj.Link)));
+            var path = HttpContext.Current.Server.MapPath("~/App_Data/" + _converter.ConvertLocation(obj.Id));
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            var extension = Path.GetExtension(obj.Link);
+            if (string.IsNullOrWhiteSpace(extension))
+                extension = ".jpg";
+            var file = path + "\\" + _converter.ConvertFileName(obj.Id) + extension;
+            _client.DownloadFile(new Uri(obj.Link), file);
         }
     }
 }

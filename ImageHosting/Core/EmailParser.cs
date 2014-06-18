@@ -24,7 +24,11 @@ namespace ImageHosting.Core
                 var text = message.FindFirstPlainTextVersion();
                 if (text != null)
                 {
-                    var result = JsonConvert.DeserializeObject<StaticObject>(text.GetBodyAsText());
+                    var body = text.GetBodyAsText();
+                    body = HttpUtility.UrlDecode(body);
+                    body = HttpUtility.HtmlDecode(body);
+                    
+                    var result = JsonConvert.DeserializeObject<StaticObject>(body);
                     if (result != null)
                         _downloader.DownloadFile(result);
                 }
