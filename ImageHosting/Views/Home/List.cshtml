@@ -1,0 +1,8 @@
+﻿@model string[]
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li><a href="@Url.Action("Index", new { id = item })"><img src="@Url.Action("Index", new { id = item })" style="max-height:150px; width:auto;" /></a></li>
+    }
+</ul>

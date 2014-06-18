@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ImageHosting.Core;
+using WebGrease.Css.Extensions;
 
 namespace ImageHosting.Controllers
 {
@@ -34,6 +36,18 @@ namespace ImageHosting.Controllers
         {
             _retriever.Retrieve();
             return "Done";
+        }
+
+        public ActionResult List(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id)) return new HttpNotFoundResult();
+            var path = string.Format("{0}\\{1}", Server.MapPath("~/App_Data/"), id);
+            if(!Directory.Exists(path)) return new HttpNotFoundResult();
+            var files = Directory.GetFiles(path);
+            var values = new List<string>();
+            foreach (var file in files)
+                values.Add(id + "-" + Path.GetFileName(file));
+            return View(values.ToArray());
         }
     }
 }
