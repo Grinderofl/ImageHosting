@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using OpenPop.Mime;
@@ -20,8 +21,9 @@ namespace ImageHosting.Core
             var messages = new List<Message>();
             using (var client = new Pop3Client())
             {
-                client.Connect("pop.myserver.net", 995, true);
-                client.Authenticate("user", "pass", AuthenticationMethod.UsernameAndPassword);
+                var appSettings = ConfigurationManager.AppSettings;
+                client.Connect(appSettings["host"], 995, true);
+                client.Authenticate(appSettings["user"], appSettings["pass"], AuthenticationMethod.UsernameAndPassword);
                 for (var i = client.GetMessageCount(); i > 0; i--)
                 {
                     var message = client.GetMessage(i);

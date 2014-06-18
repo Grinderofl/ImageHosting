@@ -16,7 +16,7 @@ namespace ImageHosting.Controllers
 
         public ActionResult Refresh()
         {
-            
+            return null;
         }
     }
 }
